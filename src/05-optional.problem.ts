@@ -4,9 +4,8 @@ import { expect, it } from "vitest";
 import { z } from "zod";
 
 const Form = z.object({
-  name: z.string(),
+  name: z.string().optional(),
   phoneNumber: z.string(),
-  //                     ^ 🕵️‍♂️
 });
 
 export const validateFormInput = (values: unknown) => {
@@ -20,15 +19,15 @@ export const validateFormInput = (values: unknown) => {
 it("Should validate correct inputs", async () => {
   expect(() =>
     validateFormInput({
-      name: "Matt",
-    }),
+      phoneNumber: "123",
+    })
   ).not.toThrow();
 
   expect(() =>
     validateFormInput({
       name: "Matt",
       phoneNumber: "123",
-    }),
+    })
   ).not.toThrow();
 });
 
